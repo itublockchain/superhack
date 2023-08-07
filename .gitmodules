@@ -1,3 +1,3 @@
-[submodule "op-geth"]
-	path = op-geth
+[submodule "superhack-op-geth"]
+	path = superhack-op-geth
 	url = https://github.com/itublockchain/superhack-op-geth
