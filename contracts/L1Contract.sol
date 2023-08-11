@@ -14,7 +14,7 @@ contract L1Contract {
 	IWorldID internal immutable worldId;
     mapping(uint256 => bool) internal nullifierHashes;
 	
-    address internal addRecipient = 0x01;
+    address internal addRecipient = 0x65698ef6229AF993c6aC2c2ec8e08dcFEa227952; //mailbox contract of OPSTACK chain
     bytes32 internal bytRecipient = bytes32(uint256(uint160(addRecipient)));
     bytes internal _body;
 
@@ -45,11 +45,8 @@ contract L1Contract {
         );
 
     	nullifierHashes[nullifierHash] = true;
-        _body = abi.encodePacked(msg.sender);    
-
-            //TODO: send crosschain message
-            //TODO: set body
-            mailbox.dispatch(destination, bytRecipient, _body);
+        _body = msg.sender;    
+        mailbox.dispatch(destination, bytRecipient, _body);
 
     }
 }
