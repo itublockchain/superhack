@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT 
+// @unsupported: ovm
 pragma solidity ^0.8.10;
 
 import { ByteHasher } from './helpers/ByteHasher.sol';
-import { IWorldID } from './interfaces/IWorldID.sol';
+import { IWorldID } from './interfaces/IWorldId.sol';
 import { IMailbox } from './interfaces/IMailbox.sol';
 
 
@@ -45,12 +46,12 @@ contract L1Contract {
         );
 
     	nullifierHashes[nullifierHash] = true;
-        _body = msg.sender;    
+        _body = "msg.sender";    
         mailbox.dispatch(destination, bytRecipient, _body);
 
     }
     function sendTestMessages () public {
-        _body = msg.sender;    
+        _body = "msg.sender";    
         mailbox.dispatch(destination, bytRecipient, _body);
     }
 }

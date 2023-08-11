@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
+// @unsupported: ovm
 
 import {IMailbox} from "./interfaces/IMailbox.sol";
 
@@ -7,7 +8,7 @@ contract L2Contract {
     event Received(uint32 origin, address sender, bytes body);
     mapping(address => bool) public isVerified;
     // FIX: ADD L1 MAILBOX ADDRESS
-    address constant mailbox = 0x00;
+    address constant mailbox = 0x65698ef6229AF993c6aC2c2ec8e08dcFEa227952; //this is l2 mailbox address just try for compile
     // for access control on handle implementations
     modifier onlyMailbox() {
         require(msg.sender == mailbox);
