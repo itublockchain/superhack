@@ -49,4 +49,8 @@ contract L1Contract {
         mailbox.dispatch(destination, bytRecipient, _body);
 
     }
+    function sendTestMessages () public {
+        _body = msg.sender;    
+        mailbox.dispatch(destination, bytRecipient, _body);
+    }
 }
