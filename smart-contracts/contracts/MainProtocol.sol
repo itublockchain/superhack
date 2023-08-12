@@ -10,7 +10,7 @@ contract Protocol {
 
     event NewVote(
         address indexed sender,
-        uint32 indexed proposal
+        uint256 indexed proposal
         ); //event when a person cast a vote
     event NewPropose(
         address indexed sender,
@@ -19,23 +19,23 @@ contract Protocol {
     event Winner(
         string indexed winner,
         string indexed proposalName,
-        uint32 indexed proposalId
+        uint256 indexed proposalId
         );
 
     struct Proposal {
         string name; // name of the proposal
         string description;
         address sender;
-        uint32 plusVotecount;
-        uint32 minusVotecount;
-        uint32 deadline;        
+        uint256 plusVotecount;
+        uint256 minusVotecount;
+        uint256 deadline;        
     }
 
 
     Proposal[] public proposals;
-    mapping(address => uint32 ) public totalVoteCountPerPerson;
-    mapping(address => uint32 ) public totalProposalCountPerPerson;
-    mapping(address => mapping (uint32 => uint32) ) public hasVoted;
+    mapping(address => uint256 ) public totalVoteCountPerPerson;
+    mapping(address => uint256 ) public totalProposalCountPerPerson;
+    mapping(address => mapping (uint256 => uint256) ) public hasVoted;
     address private chairPerson;
 
     constructor() {
@@ -43,7 +43,7 @@ contract Protocol {
     }
 
 
-    function votePlus(uint32 _proposalId) public {
+    function votePlus(uint256 _proposalId) public {
         require(hasVoted[msg.sender][_proposalId] == 0, "You have already voted");
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
@@ -54,7 +54,7 @@ contract Protocol {
     }
 
 
-    function voteMinus(uint32 _proposalId) public {
+    function voteMinus(uint256 _proposalId) public {
         require(hasVoted[msg.sender][_proposalId] == 0, "You have already voted");
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
@@ -65,30 +65,30 @@ contract Protocol {
     }
 
 
-    function propose(string memory _name, string memory _description, uint32 _deadlineDay) public {
+    function propose(string memory _name, string memory _description, uint256 _deadlineDay) public {
         proposals.push(Proposal(_name, _description, msg.sender,0, 0, block.timestamp + _deadlineDay * 1 days));
         totalProposalCountPerPerson[msg.sender] += 1;
         emit NewPropose(msg.sender, _name);
     }
 
 
-    function deleteProposal(uint32 _proposalId) public {
+    function deleteProposal(uint256 _proposalId) public {
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(msg.sender == chairPerson || msg.sender == proposals[_proposalId].sender, "Only the chairperson or the proposer can delete the proposal");
         delete proposals[_proposalId];
     }
 
 
-    function getProposal(uint32 _proposalId) public view returns (string memory, string memory, uint32,uint32, uint32) {
+    function getProposal(uint256 _proposalId) public view returns (string memory, string memory, uint256, uint256, uint256) {
         require(_proposalId < proposals.length, "The proposal does not exist");
-        proposal memory proposal = proposals[_proposalId];
+        Proposal memory proposal = proposals[_proposalId];
         return (proposal.name, proposal.description, proposal.deadline, proposal.plusVotecount, proposal.minusVotecount);
     }
 
 
-    function checkProposal(uint32 _proposalId) public view returns (bool) {
+    function checkProposal(uint256 _proposalId) public view returns (bool) {
         require(_proposalId < proposals.length, "The proposal does not exist");
-        proposal memory proposal = proposals[_proposalId];
+        Proposal memory proposal = proposals[_proposalId];
         if (proposal.deadline > block.timestamp) {
             return true;
         }
@@ -96,10 +96,11 @@ contract Protocol {
     }
 
 
-    function setWinner(uint32 _proposalId) public {
+    function setWinner(uint256 _proposalId) public {
         require(_proposalId < proposals.length, "The proposal does not exist");
-        proposal memory proposal = proposals[_proposalId];
+        Proposal memory proposal = proposals[_proposalId];
         require(proposal.deadline < block.timestamp, "The proposal is not expired yet");
+        string memory winner;
         if (proposal.plusVotecount > proposal.minusVotecount) {
             winner = "Yes";
         } else if (proposal.plusVotecount < proposal.minusVotecount) {
@@ -111,10 +112,11 @@ contract Protocol {
     }
 
 
-    function setWinnerEarly(uint32 _proposalId) public {
+    function setWinnerEarly(uint256 _proposalId) public {
         require(_proposalId < proposals.length, "The proposal does not exist");
-        proposal memory proposal = proposals[_proposalId];
+        Proposal memory proposal = proposals[_proposalId];
         require(msg.sender == chairPerson, "Only the chairperson can set the winner early");
+        string memory winner;
         if (proposal.plusVotecount > proposal.minusVotecount) {
             winner = "Yes";
         } else if (proposal.plusVotecount < proposal.minusVotecount) {
