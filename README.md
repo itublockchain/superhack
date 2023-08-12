@@ -1,11 +1,11 @@
-#OneOPIdentity
+# OneOPIdentity
 desc
-##Run OpSTACK
+## Run OpSTACK
 Follow these instructions: [https://stack.optimism.io/docs/build/getting-started/#]
 Instead of op-geth directory use OneOPIndetity-op-geth directory.
-##Run Hyperlane Validators and Relayer
+## Run Hyperlane Validators and Relayer
 
-###Copy files
+### Copy files
 ```bash
 cp relayer.env.example /hyperlane-monorepo/rust/relayer.env
 cp validator.env.example /hyperlane-monorepo/rust/validator.env
@@ -13,6 +13,7 @@ cp validatoropgoerli.env.example /hyperlane-monorepo/rust/validatoropgoerli.env
 cp agent_config.js /hyperlane-monorepo/rust/agent_config.json
 
 ```
+### Compile and Run
 
 - install `rustup`
       - [link here](https://rustup.rs/)
