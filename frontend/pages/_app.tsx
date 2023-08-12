@@ -5,7 +5,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { Chain, configureChains, createConfig, WagmiConfig } from "wagmi";
-import { optimismGoerli } from "wagmi/chains";
+import { optimismGoerli, goerli } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -45,7 +45,7 @@ const opstack: Chain = {
 };
 
 const { chains, publicClient } = configureChains(
-  [optimismGoerli, opstack],
+  [optimismGoerli, opstack, goerli],
   [publicProvider()]
 );
 
