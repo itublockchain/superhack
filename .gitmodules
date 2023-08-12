@@ -1,0 +1,6 @@
+[submodule "OneOPIdentity-op-geth"]
+	path = OneOPIdentity-op-geth
+	url = https://github.com/itublockchain/OneOPIdentity-op-geth
+[submodule "hyperlane-monorepo"]
+	path = hyperlane-monorepo
+	url = https://github.com/hyperlane-xyz/hyperlane-monorepo
