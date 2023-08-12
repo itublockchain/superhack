@@ -1,5 +1,6 @@
-import { usePrepareContractWrite, useContractWrite } from "wagmi";
+import { usePrepareContractWrite, useContractWrite, useContractRead } from "wagmi";
 import { address, abi } from "../contracts/abi";
+import { ethers } from "ethers";
 
 type ProposalInput = {
   proposalId: number;
@@ -37,10 +38,20 @@ export const Proposal = ({
   });
 
   const { write: voteMinus } = useContractWrite(minusConfig);
+
+  const { data: isEnded } = useContractRead({
+    address: address,
+    abi: abi,
+    functionName: "getProposal"
+  })
+
   return (
     <>
-      <div className="w-full text-center">
+      <div className="w-full">
         <div className="m-5">
+            <p>
+                {isEnded ? "Ongoing" : "Ended"}
+            </p>
           <h1>Name: {name}</h1>
           <p>Description: {description}</p>
           <a href={`https://etherscan.io/address/${sender}`} target="_blank">

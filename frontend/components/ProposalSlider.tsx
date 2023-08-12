@@ -29,10 +29,11 @@ export const ProposalSlider = () => {
   console.log(proposalArray);
   return (
     <>
-      <div className="w-1/2 h-screen overflow-scroll flex flex-col justify-center items-start">
+      <div className="w-1/2 h-screen overflow-scroll text-center">
         {proposalArray?.map((proposal: IProposal, index: number) => {
           return (
             <Proposal
+              key={index}
               proposalId={index}
               sender={proposal.sender}
               name={proposal.name}
