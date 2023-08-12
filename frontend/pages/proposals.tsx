@@ -11,7 +11,7 @@ import { error } from "console";
 export default function Home() {
   return (
     <>
-    <div className={`h-screen flex justify-center text-2xl ${passionOne.className}`}>
+    <div className={`h-screen bg-white flex justify-center text-2xl ${passionOne.className}`}>
       <ProposalSlider />
     </div>
     </>
