@@ -4,6 +4,10 @@
 
 @layer base {
   .connect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 326px;
     height: 94px;
     border-radius: 73px;
@@ -19,6 +23,10 @@
   }
 
   .connect:hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 326px;
     height: 94px;
     border-radius: 73px;
@@ -34,5 +42,17 @@
 
     transition: all;
     transition-duration: 0.2s;
+  }
+
+  .heading {
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    background: linear-gradient(185deg, #0554f2 15.25%, #f20732 95.51%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
