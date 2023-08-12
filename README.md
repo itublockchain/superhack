@@ -1,8 +1,10 @@
 # OneOPIdentity
 desc
+
 ## Run OpSTACK
-Follow these instructions: [https://stack.optimism.io/docs/build/getting-started/#]
+Follow these instructions: [OPStack Guide](https://stack.optimism.io/docs/build/getting-started/#)
 Instead of op-geth directory use OneOPIndetity-op-geth directory.
+
 ## Run Hyperlane Validators and Relayer
 
 ### Copy files
@@ -28,8 +30,10 @@ info: The currently active `rustc` version is `rustc 1.71.1 (eb26296b5 2023-08-0
 ```
 
 Build the validator and then run the binary directly:
+(Make sure filled your url and private key on commands.)
 
 ```bash
+cd /hyperlane-monorepo/rust
 cargo build --release --bin validator
 ```
 
@@ -44,6 +48,7 @@ env $(cat validator.env | grep -v "#" | xargs) ./target/release/validator --chec
 Build the relayer and then run the binary directly:
 
 ```bash
+cd /hyperlane-monorepo/rust
 cargo build --release --bin relayer
 ```
 
