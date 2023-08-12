@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .connect {
+    width: 326px;
+    height: 94px;
+    border-radius: 73px;
+    border: 3px solid rgba(0, 0, 0, 0.75);
+    background: #fff;
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.5);
+
+    color: #000;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .connect:hover {
+    width: 326px;
+    height: 94px;
+    border-radius: 73px;
+    border: 3px solid rgba(0, 0, 0, 0.75);
+    background: #ddd;
+    box-shadow: 0px 6px 4px 0px rgba(0, 0, 0, 0.5);
+
+    color: #000;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    transition: all;
+    transition-duration: 0.2s;
+  }
+}
