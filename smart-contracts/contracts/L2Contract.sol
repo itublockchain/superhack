@@ -8,7 +8,7 @@ contract L2Contract {
     event Received(uint32 origin, address sender, bytes body);
     mapping(address => bool) public isVerified;
     // FIX: ADD L1 MAILBOX ADDRESS
-    address constant mailbox = 0x65698ef6229AF993c6aC2c2ec8e08dcFEa227952; //this is l2 mailbox address just try for compile
+    address constant mailbox = 0x4B1A0E704F5Bec55600801d93B1bEd88d12caa7f;
     // for access control on handle implementations
     modifier onlyMailbox() {
         require(msg.sender == mailbox);

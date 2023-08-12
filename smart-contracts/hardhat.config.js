@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-ethers");
 require("@eth-optimism/hardhat-ovm");
+require("@nomiclabs/hardhat-etherscan");
 
 require("dotenv").config()
 
@@ -36,4 +37,7 @@ module.exports = {
     helpers: "./contracts/helpers",
     interfaces: "./contracts/interfaces",
   },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
+  }
 };
