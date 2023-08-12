@@ -5,8 +5,9 @@ import { useEffect } from "react";
 
 const passionOne = Passion_One({weight: "400", subsets: ["latin"] });
 
-import { useContractWrite, usePrepareContractWrite } from "wagmi"; 
+import { useContractWrite, usePrepareContractWrite, useContractRead } from "wagmi"; 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { error } from "console";
 
 export default function Home() {
   const { config } = usePrepareContractWrite({
@@ -28,12 +29,32 @@ export default function Home() {
     args: ["hello"]
   })
 
+  const { data: greeting, isError, isLoading } = useContractRead({
+    address: '0xFc1AcEC8c78cBF3d1F5a0567e11dFfB6Fd45039D',
+    abi: [{
+      "inputs": [],
+      "name": "greet",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }] as const,
+    functionName: 'greet',
+  })
+
   const { write: setGreeting } = useContractWrite( config )
   return (
     <>
     <div className={`h-screen flex justify-center items-center ${passionOne.className}`}>
       <ConnectButton />
       <button onClick={() => setGreeting?.()} className="connect">SET GREETING</button>
+      <button className="connect">SET GREETING</button>
+      {greeting}
     </div>
     </>
   );

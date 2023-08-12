@@ -79,11 +79,10 @@ contract Protocol {
     }
 
 
-    function getProposal(uint32 _proposalId) public view returns (string memory, string memory, uint32,uint32, uint32, uint32, uint32) {
+    function getProposal(uint32 _proposalId) public view returns (string memory, string memory, uint32,uint32, uint32) {
         require(_proposalId < proposals.length, "The proposal does not exist");
         proposal memory proposal = proposals[_proposalId];
-        percantagesForProposal = calculatePercentage(_proposalId);
-        return (proposal.name, proposal.description, proposal.deadline,proposal.plusVotecount, proposal.minusVotecount, percantagesForProposal[0], percantagesForProposal[1]);
+        return (proposal.name, proposal.description, proposal.deadline, proposal.plusVotecount, proposal.minusVotecount);
     }
 
 
