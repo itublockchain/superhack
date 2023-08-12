@@ -44,7 +44,7 @@ contract Protocol {
 
 
     function votePlus(uint32 _proposalId) public {
-        require(hasVoted[_proposalId][msg.sender] == 0, "You have already voted");
+        require(hasVoted[msg.sender][_proposalId] == 0, "You have already voted");
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
         totalVoteCountPerPerson[msg.sender] += 1;
@@ -55,7 +55,7 @@ contract Protocol {
 
 
     function voteMinus(uint32 _proposalId) public {
-        require(hasVoted[_proposalId][msg.sender] == 0, "You have already voted");
+        require(hasVoted[msg.sender][_proposalId] == 0, "You have already voted");
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
         totalVoteCountPerPerson[msg.sender] += 1;
@@ -76,16 +76,6 @@ contract Protocol {
         require(_proposalId < proposals.length, "The proposal does not exist");
         require(msg.sender == chairPerson || msg.sender == proposals[_proposalId].sender, "Only the chairperson or the proposer can delete the proposal");
         delete proposals[_proposalId];
-    }
-
-
-    function calculatePercentage (uint32 _proposalId) public view returns (uint32, uint32) {
-        require(_proposalId < proposals.length, "The proposal does not exist");
-        proposal memory proposal = proposals[_proposalId];
-        uint32 totalVoteCount = proposal.plusVotecount + proposal.minusVotecount;
-        uint32 plusPercentage = (proposal.plusVotecount / totalVoteCount) * 100;
-        uint32 minusPercentage = (proposal.minusVotecount / totalVoteCount) * 100;
-        return (plusPercentage, minusPercentage);
     }
 
 
@@ -111,11 +101,12 @@ contract Protocol {
         require(_proposalId < proposals.length, "The proposal does not exist");
         proposal memory proposal = proposals[_proposalId];
         require(proposal.deadline < block.timestamp, "The proposal is not expired yet");
-        percantagesForProposal = calculatePercentage(_proposalId);
-        if (percantagesForProposal[0] > percantagesForProposal[1]) {
+        if (proposal.plusVotecount > proposal.minusVotecount) {
             winner = "Yes";
-        } else {
+        } else if (proposal.plusVotecount < proposal.minusVotecount) {
             winner = "No";
+        } else {
+            winner = "Equal";
         }
         emit Winner(winner, proposal.name, _proposalId);
     }
@@ -125,12 +116,13 @@ contract Protocol {
         require(_proposalId < proposals.length, "The proposal does not exist");
         proposal memory proposal = proposals[_proposalId];
         require(msg.sender == chairPerson, "Only the chairperson can set the winner early");
-        percantagesForProposal = calculatePercentage(_proposalId);
-        if (percantagesForProposal[0] > percantagesForProposal[1]) {
+        if (proposal.plusVotecount > proposal.minusVotecount) {
             winner = "Yes";
-        } else {
+        } else if (proposal.plusVotecount < proposal.minusVotecount) {
             winner = "No";
-        }
+        } else {
+            winner = "Equal";
+        }        
         emit Winner(winner, proposal.name, _proposalId);
     }
 }
