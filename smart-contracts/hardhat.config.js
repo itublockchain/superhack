@@ -1,6 +1,8 @@
 require("@nomiclabs/hardhat-ethers");
 require("@eth-optimism/hardhat-ovm");
 
+require("dotenv").config()
+
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ALCHEMY_GOERLI_URL = process.env.ALCHEMY_URL;
 const ALCHEMY_OPGOERLI_URL = process.env.ALCHEMY_URL;

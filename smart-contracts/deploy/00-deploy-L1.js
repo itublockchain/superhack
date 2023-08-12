@@ -1,6 +1,8 @@
 const { ethers } = require("hardhat");
 const { JsonRpcProvider } = require("@ethersproject/providers");
 
+require("dotenv").config()
+
 async function main() {
   // Use the AlchemyProvider, but configure it for Optimism Goerli
   const provider = new JsonRpcProvider(`${process.env.ALCHEMY_OPGOERLI_URL}`);
@@ -8,11 +10,9 @@ async function main() {
 
   const L1Contract = await ethers.getContractFactory("L1Contract");
   const L1 = await L1Contract.deploy(
-    {
-      _worldId: "lorem123",
-      _appId: "123",
-      _actionId: "321"
-    },
+      _worldId= "lorem123",
+      _appId= "123",
+      _actionId= "321",
     {
       signer: accounts[0],
     }
