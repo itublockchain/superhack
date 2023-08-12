@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <>
       <div
-        className={`h-screen bg-white flex flex-col gap-32  items-center ${passionOne.className}`}
+        className={`h-screen flex flex-col gap-32  items-center ${passionOne.className}`}
       >
         <BackButton route="/proposals"/>
         <div className="flex items-center gap-5 mt-5">

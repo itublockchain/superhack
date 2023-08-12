@@ -9,6 +9,7 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { Abi, Narrow } from "viem";
 import { optimismGoerli } from "wagmi/chains";
 import { useEffect } from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -44,11 +45,15 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col gap-32 justify-center items-center ${passionOne.className}`}
       >
+        <div className="flex flex-col gap-5 items-center">
+
         {isLoading 
         ? 
         <button className="connect">VERIFYING...</button>
         :
         <button onClick={() => verifyAddress?.()} className="connect">VERIFY</button>}
+        <ConnectButton />
+        </div>
         
         <p className="w-1/3 text-3xl font-thin">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore fuga ducimus rem quia suscipit minima illum corporis sint, quos, sit dolorem ex quis ut animi quae iure! Deserunt incidunt odio facilis esse voluptatem inventore quas ducimus, vitae eius rerum facere nulla modi rem nesciunt laborum laudantium reprehenderit debitis culpa vel.
