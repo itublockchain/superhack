@@ -49,7 +49,7 @@ contract Protocol {
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
         totalVoteCountPerPerson[msg.sender] += 1;
         proposals[_proposalId].plusVotecount += 1;
-        hasVoted[_proposalId][msg.sender] = 1;
+        hasVoted[msg.sender][_proposalId] = 1;
         emit NewVote(msg.sender, _proposalId);
     }
 
@@ -60,7 +60,7 @@ contract Protocol {
         require(proposals[_proposalId].deadline > block.timestamp, "The proposal is expired");
         totalVoteCountPerPerson[msg.sender] += 1;
         proposals[_proposalId].minusVotecount += 1;
-        hasVoted[_proposalId][msg.sender] = 1;
+        hasVoted[msg.sender][_proposalId] = 1;
         emit NewVote(msg.sender, _proposalId);
     }
 
@@ -119,7 +119,7 @@ contract Protocol {
         }
         emit Winner(winner, proposal.name, _proposalId);
     }
-    
+
 
     function setWinnerEarly(uint32 _proposalId) public {
         require(_proposalId < proposals.length, "The proposal does not exist");
