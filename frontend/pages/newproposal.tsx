@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import { Heading } from "@/components/Heading";
 import { BackButton } from "@/components";
 import logo from "../public/logo.png";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -37,7 +38,11 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col gap-32  items-center ${passionOne.className}`}
       >
+        <div className="absolute flex items-center gap-5 top-5 left-5">
+
         <BackButton route="/proposals" />
+        <ConnectButton showBalance={false} />
+        </div>
         <Image src={logo} alt="logo" className="absolute right-5 top-5" />
         <div className="flex items-center gap-5 mt-5">
           <Heading text={"CREATE A PROPOSAL"} />
