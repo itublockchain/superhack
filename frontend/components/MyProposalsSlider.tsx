@@ -9,10 +9,11 @@ type IProposal = {
   sender: `0x${string}`;
   plusVotecount: bigint;
   minusVotecount: bigint;
-  deadline: bigint;
+  deadline: number;
 };
 
 export const MyProposalsSlider = () => {
+  const startTime = Math.floor(Date.now() / 1000);
   const [proposalArray, setProposalArray] = useState<any>();
 
   const { address: myAddress } = useAccount()
@@ -42,7 +43,7 @@ export const MyProposalsSlider = () => {
               sender={proposal.sender}
               name={proposal.name}
               description={proposal.description}
-              deadline={proposal.deadline}
+              deadline={Number(proposal.deadline) / startTime}
               minusVotecount={proposal.minusVotecount}
               plusVotecount={proposal.plusVotecount}
             />

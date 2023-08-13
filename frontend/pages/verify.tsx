@@ -57,8 +57,10 @@ export default function Home() {
         <ConnectButton />
         </div>
         
-        <p className="w-1/3 text-3xl font-thin">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore fuga ducimus rem quia suscipit minima illum corporis sint, quos, sit dolorem ex quis ut animi quae iure! Deserunt incidunt odio facilis esse voluptatem inventore quas ducimus, vitae eius rerum facere nulla modi rem nesciunt laborum laudantium reprehenderit debitis culpa vel.
+        <p className="w-1/3 text-3xl font-thin justify-center">
+          Send a transaction to the contract to verify your address. 
+        <div></div>
+          If you successfully verified via WorldID you get access to opStack chain.
         </p>
       </div>
     </>

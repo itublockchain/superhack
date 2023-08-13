@@ -10,7 +10,7 @@ type ProposalInput = {
   sender: `0x${string}`;
   plusVotecount: bigint;
   minusVotecount: bigint;
-  deadline: bigint;
+  deadline: number;
 };
 
 export const Proposal = ({
@@ -22,7 +22,7 @@ export const Proposal = ({
   plusVotecount,
   sender,
 }: ProposalInput) => {
-
+  
   const [ voted, setVoted ] = useState<boolean>()
 
   const { address: myAddress } = useAccount()
@@ -84,7 +84,7 @@ export const Proposal = ({
           </a>
         </div>
         <div className="m-5">
-          <div>Deadline: {Number(deadline)}</div>
+          <div>Deadline: {`${Math.round(Number(deadline))} days`}</div>
         </div>
         <button
           onClick={() => votePlus?.()}
