@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Passion_One } from "next/font/google";
 import { useAccount } from "wagmi";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
 import { Logo } from "@/components";
@@ -12,10 +13,12 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 export default function Home() {
 
   const { address, isConnected } = useAccount();
+  const router = useRouter()
   
   useEffect(() => {
     if (isConnected) {
-      window.location.href = "/verify"
+      // window.location.href = "/verify"
+      router.push("/verify")
     }
   }, [isConnected]);
 
