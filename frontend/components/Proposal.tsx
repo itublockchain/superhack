@@ -1,6 +1,7 @@
-import { usePrepareContractWrite, useContractWrite, useContractRead } from "wagmi";
+import { usePrepareContractWrite, useContractWrite, useContractRead, useAccount } from "wagmi";
 import { address, abi } from "../contracts/abi";
 import { ethers } from "ethers";
+import { useState } from "react";
 
 type ProposalInput = {
   proposalId: number;
@@ -21,6 +22,11 @@ export const Proposal = ({
   plusVotecount,
   sender,
 }: ProposalInput) => {
+
+  const [ voted, setVoted ] = useState<boolean>()
+
+  const { address: myAddress } = useAccount()
+
   const { config: plusConfig } = usePrepareContractWrite({
     address: address,
     abi: abi,
@@ -35,6 +41,7 @@ export const Proposal = ({
     abi: abi,
     functionName: "votePlus",
     args: [BigInt(proposalId)],
+    // account: "0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
   });
 
   const { write: voteMinus } = useContractWrite(minusConfig);
@@ -43,11 +50,38 @@ export const Proposal = ({
     address: address,
     abi: abi,
     functionName: "getProposal",
-    account:"0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
+    account: "0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
   })
+
+  const { config: deleteProposalConfig } = usePrepareContractWrite({
+    address: address,
+    abi: abi,
+    functionName: "deleteProposal",
+    args: [BigInt(proposalId)]
+  })
+
+  const { write: deleteProposal } = useContractWrite( deleteProposalConfig )
+
+  if (myAddress) {
+    const { data: proposals } = useContractRead({
+      address: address,
+      abi: abi,
+      functionName: "hasVoted",
+      account: "0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
+      onSettled(data, error) {
+        if (data) {
+          console.log(data);
+          setVoted(Boolean(data))
+        }
+      },
+      args: [myAddress, BigInt(proposalId)]
+    });
+  }
 
   return (
     <>
+      {
+      name && description && 
       <div className="w-full">
         <div className="m-5">
             <p>
@@ -64,17 +98,25 @@ export const Proposal = ({
         </div>
         <button
           onClick={() => votePlus?.()}
-          className="bg-green-500 hover:bg-green-700 w-48 h-16 m-5 rounded-xl"
+          className="bg-green-500 hover:bg-green-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
+          disabled={voted}
         >
           {Number(plusVotecount)}
         </button>
         <button
           onClick={() => voteMinus?.()}
-          className="bg-red-500 hover:bg-red-700 w-48 h-16 m-5 rounded-xl"
+          className="bg-red-500 hover:bg-red-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
+          disabled={voted}
         >
           {Number(minusVotecount)}
         </button>
-      </div>
+        {sender === myAddress && <button
+          onClick={() => deleteProposal?.()}
+          className="bg-red-500 hover:bg-red-700 w-48 h-16 m-5 rounded-xl"
+        >
+          DELETE PROPOSAL
+        </button>}
+      </div>}
     </>
   );
 };

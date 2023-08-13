@@ -3,6 +3,7 @@ import { Passion_One } from "next/font/google";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
+import { Logo } from "@/components";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function Home() {
       <div
         className={`h-screen flex justify-center items-center ${passionOne.className}`}
       >
+        <Logo />
         <ConnectButton.Custom>
           {({
             account,

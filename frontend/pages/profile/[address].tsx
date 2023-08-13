@@ -4,7 +4,7 @@ import { Heading } from "@/components/Heading";
 import { useRouter } from "next/router";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -13,6 +13,7 @@ export default function Home() {
     const router = useRouter()
     const { address } = router.query
 
+    useEffect(() => {}, [address])
   return (
     <>
     <div className="flex justify-end p-5">
@@ -21,7 +22,7 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col gap-32 justify-center items-center ${passionOne.className}`}
       >
-        {address}
+        {address ? address : ""}
       </div>
     </>
   );

@@ -3,9 +3,12 @@ import { useState, useRef } from "react";
 
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import { address, abi } from "@/contracts/abi";
+import Image from "next/image"
+import { ethers } from "ethers";
 
 import { Heading } from "@/components/Heading";
 import { BackButton } from "@/components";
+import logo from "../public/logo.png"
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -32,6 +35,7 @@ export default function Home() {
         className={`h-screen flex flex-col gap-32  items-center ${passionOne.className}`}
       >
         <BackButton route="/proposals"/>
+        <Image src={logo} alt="logo" className="absolute right-5 top-5"/>
         <div className="flex items-center gap-5 mt-5">
           <Heading text={"CREATE A PROPOSAL"} />
         </div>
@@ -50,10 +54,14 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <label htmlFor="name" className="text-3xl">
-                PROPOSAL'S DEADLINE
+                PROPOSAL'S DEADLINE (DAY)
               </label>
               <input
-              onChange={(e) => {setDeadline(BigInt(e.currentTarget.value))}}
+              onChange={(e) => {
+                if (typeof(Number(e.currentTarget.value))) {
+                    setDeadline(BigInt(e.currentTarget.value))
+                } 
+            }}
                 placeholder=""
                 id="name"
                 className="name-input text-5xl p-2"

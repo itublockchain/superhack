@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Heading } from "@/components/Heading";
 import Head from "next/head";
+import { Logo } from "@/components";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col gap-32 justify-center items-center ${passionOne.className}`}
       >
+        <Logo />
         <div className="flex items-center gap-5">
           <Heading text={"VERIFIED"} />
           <svg

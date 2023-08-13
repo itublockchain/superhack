@@ -1,9 +1,11 @@
-export const ProfileButton = ({ route }: { route: string }) => {
+import Link from "next/link";
+
+export const ProfileButton = ({ route, text }: { route: string, text: string }) => {
   return (
     <>
-        <a href={route} className="profile-button absolute flex justify-center items-center top-5 right-5 hover:bg-gray-300 transition-colors hover:cursor-pointer">
-          MY PROFILE
-        </a>
+        <Link className="profile-button flex justify-center items-center hover:bg-gray-300 transition-colors hover:cursor-pointer" href={route}>
+          {text}
+        </Link>
     </>
   );
 };

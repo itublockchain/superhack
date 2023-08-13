@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export const BackButton = ({ route }: { route: string }) => {
   return (
     <>
-        <a href={route} className="back-button absolute flex justify-center items-center top-5 left-5 hover:bg-gray-300 transition-colors hover:cursor-pointer">
+        <Link href={route} className="back-button absolute flex justify-center items-center top-5 left-5 hover:bg-gray-300 transition-colors hover:cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -17,7 +19,7 @@ export const BackButton = ({ route }: { route: string }) => {
               stroke-linejoin="round"
             />
           </svg>
-        </a>
+        </Link>
     </>
   );
 };

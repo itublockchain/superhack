@@ -10,6 +10,7 @@ import { Abi, Narrow } from "viem";
 import { optimismGoerli } from "wagmi/chains";
 import { useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { Logo } from "@/components";
 
 const passionOne = Passion_One({ weight: "400", subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col gap-32 justify-center items-center ${passionOne.className}`}
       >
+        <Logo />
         <div className="flex flex-col gap-5 items-center">
 
         {isLoading 

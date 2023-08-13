@@ -1,4 +1,4 @@
-import { useContractRead } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { address, abi } from "../contracts/abi";
 import { Proposal } from ".";
 import { useState } from "react";
@@ -12,8 +12,10 @@ type IProposal = {
   deadline: bigint;
 };
 
-export const ProposalSlider = () => {
+export const MyProposalsSlider = () => {
   const [proposalArray, setProposalArray] = useState<any>();
+
+  const { address: myAddress } = useAccount()
 
   const { data: proposals } = useContractRead({
     address: address,
@@ -33,7 +35,7 @@ export const ProposalSlider = () => {
     <>
       <div className="overflow-scroll text-center proposal-slider">
         {proposalArray?.map((proposal: IProposal, index: number) => {
-          return (
+          if (myAddress === proposal.sender) {return (
             <Proposal
               key={index}
               proposalId={index}
@@ -44,7 +46,7 @@ export const ProposalSlider = () => {
               minusVotecount={proposal.minusVotecount}
               plusVotecount={proposal.plusVotecount}
             />
-          );
+          );}
         })}
       </div>
     </>
