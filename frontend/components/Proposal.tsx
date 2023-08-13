@@ -24,7 +24,6 @@ export const Proposal = ({
 }: ProposalInput) => {
 
   const [ voted, setVoted ] = useState<boolean>()
-  const [isEnded, setIsEnded] = useState<boolean>()
 
   const { address: myAddress } = useAccount()
 
@@ -46,21 +45,6 @@ export const Proposal = ({
   });
 
   const { write: voteMinus } = useContractWrite(minusConfig);
-
-  const { data } = useContractRead({
-    address: address,
-    abi: abi,
-    functionName: "checkProposal",
-    account: "0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
-    onSettled(data, error) {
-      if (data) {
-        setIsEnded(data)
-      } else {
-        console.log(error)
-      }
-    },
-    args: [BigInt(proposalId)]
-  })
 
   const { config: deleteProposalConfig } = usePrepareContractWrite({
     address: address,
@@ -87,17 +71,12 @@ export const Proposal = ({
     });
   }
 
-  console.log(proposalId, isEnded)
-
   return (
     <>
       {
       name && description && 
       <div className="w-full">
         <div className="m-5">
-            <p>
-                {isEnded ? "Ongoing" : "Ended"}
-            </p>
           <h1>Name: {name}</h1>
           <p>Description: {description}</p>
           <a href={`https://etherscan.io/address/${sender}`} target="_blank">
@@ -110,14 +89,14 @@ export const Proposal = ({
         <button
           onClick={() => votePlus?.()}
           className="bg-green-500 hover:bg-green-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
-          disabled={voted && isEnded}
+          disabled={voted}
         >
           {Number(plusVotecount)}
         </button>
         <button
           onClick={() => voteMinus?.()}
           className="bg-red-500 hover:bg-red-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
-          disabled={voted && isEnded}
+          disabled={voted}
         >
           {Number(minusVotecount)}
         </button>
