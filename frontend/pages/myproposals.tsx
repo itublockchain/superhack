@@ -18,7 +18,7 @@ export default function Proposals() {
       <div
         className={`h-screen flex flex-col justify-center items-center text-2xl ${passionOne.className}`}
       >
-        <div className="flex gap-5 absolute top-5 left-5">
+        <div className="flex gap-5 absolute top-5 left-5 items-center">
           <ProfileButton route={`/newproposal`} text="CREATE A PROPOSAL" />
           <ProfileButton route={`/proposals`} text="PROPOSALS" />
           <ConnectButton showBalance={false} />
