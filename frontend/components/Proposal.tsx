@@ -75,7 +75,7 @@ export const Proposal = ({
     <>
       {
       name && description && 
-      <div className="w-full">
+      <div className="w-full flex justify-between items-center p-5 gap-5 border-b-2 border-black">
         <div className="m-5">
           <h1>Name: {name}</h1>
           <p>Description: {description}</p>
@@ -86,16 +86,17 @@ export const Proposal = ({
         <div className="m-5">
           <div>Deadline: {`${Math.round(Number(deadline))} days`}</div>
         </div>
+        <div className="">
         <button
           onClick={() => votePlus?.()}
-          className="bg-green-500 hover:bg-green-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
+          className="bg-green-500 hover:bg-green-700 w-32 h-12 m-5 rounded-xl disabled:bg-gray-500"
           disabled={voted}
         >
           {Number(plusVotecount)}
         </button>
         <button
           onClick={() => voteMinus?.()}
-          className="bg-red-500 hover:bg-red-700 w-48 h-16 m-5 rounded-xl disabled:bg-gray-500"
+          className="bg-red-500 hover:bg-red-700 w-32 h-12 m-5 rounded-xl disabled:bg-gray-500"
           disabled={voted}
         >
           {Number(minusVotecount)}
@@ -106,6 +107,8 @@ export const Proposal = ({
         >
           DELETE PROPOSAL
         </button>}
+        </div>
+        
       </div>}
     </>
   );
