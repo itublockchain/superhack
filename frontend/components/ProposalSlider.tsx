@@ -19,8 +19,10 @@ export const ProposalSlider = () => {
     address: address,
     abi: abi,
     functionName: "getProposals",
+    account: "0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
     onSettled(data, error) {
       if (data) {
+        console.log("settled")
         setProposalArray(data);
       }
     },

@@ -126,4 +126,8 @@ contract Protocol {
         }        
         emit Winner(winner, proposal.name, _proposalId);
     }
+
+    function getProposals() public view returns (Proposal[] memory) {
+        return proposals;
+    }
 }
