@@ -42,7 +42,8 @@ export const Proposal = ({
   const { data: isEnded } = useContractRead({
     address: address,
     abi: abi,
-    functionName: "getProposal"
+    functionName: "getProposal",
+    account:"0xff9004d37b27e7cd66c08f439198d54d68bd4ee0",
   })
 
   return (
